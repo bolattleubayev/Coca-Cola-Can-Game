@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FAC89C1E24175957000EA7C4 /* Coca Cola Can Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coca Cola Can Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coca-Cola Can Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC89C2124175957000EA7C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC89C2324175957000EA7C4 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		FAC89C2524175957000EA7C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		FAC89C1F24175957000EA7C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FAC89C1E24175957000EA7C4 /* Coca Cola Can Game.app */,
+				FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +84,7 @@
 			);
 			name = "Coca Cola Can Game";
 			productName = "Coca Cola Can Game";
-			productReference = FAC89C1E24175957000EA7C4 /* Coca Cola Can Game.app */;
+			productReference = FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -292,7 +292,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "bolattleubayev.dev.Coca-Cola-Can-Game";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coca-Cola Can Game";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -310,7 +310,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "bolattleubayev.dev.Coca-Cola-Can-Game";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coca-Cola Can Game";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
