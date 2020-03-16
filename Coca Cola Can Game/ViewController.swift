@@ -18,6 +18,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     private var score: Int = 0
     private var planeGuidingNodes = [SCNNode]()
     private var container: SCNNode!
+    private var level: Int = 0
     
     var directionalLightNode: SCNNode?
     var ambientLightNode: SCNNode?
@@ -26,31 +27,49 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     @IBOutlet var sceneView: ARSCNView!
     
+    @IBOutlet weak var instructionLabel: UILabel!
+    
+    @IBAction func restartButtonPressed(_ sender: UIButton) {
+        
+        // Remove all previously added nodes
+        for childNode in sceneView.scene.rootNode.childNodes {
+            childNode.removeFromParentNode()
+        }
+        
+        // Add bins
+        cansAdded = false
+        
+        score = 0
+        
+        //instructionLabel.text = "Счёт: \(self.score)"
+        
+    }
+    
+    @IBAction func levelChanged(_ sender: UISegmentedControl) {
+        
+        // Remove all previously added nodes
+        for childNode in sceneView.scene.rootNode.childNodes {
+            childNode.removeFromParentNode()
+        }
+        
+        // Add bins
+        cansAdded = false
+        
+        DispatchQueue.main.async {
+          self.level = sender.selectedSegmentIndex
+        }
+        
+    }
+    
     
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
         
         if !cansAdded {
-            
-            let scene = SCNScene(named: "art.scnassets/canPyramid.scn")!
-            
-            // Set the scene to the view
-            sceneView.scene = scene
-            
-            let touchLocation = sender.location(in: sceneView)
-            let hitTestResult = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
-            
-            if let result = hitTestResult.first {
-                container = sceneView.scene.rootNode.childNode(withName: "container", recursively: false)!
-                container.position = SCNVector3(x: result.worldTransform.columns.3.x, y: result.worldTransform.columns.3.y, z: result.worldTransform.columns.3.z)
-                
-                container.isHidden = false
-                ambientLightNode = container.childNode(withName: "ambientLight", recursively: false)
-                directionalLightNode = container.childNode(withName: "directionalLight", recursively: false)
-                cansAdded = true
-            }
+            putCans(sender: sender, level: level)
         } else {
             createBall()
         }
+        
     }
     
     // MARK: - Functions
@@ -58,12 +77,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
       guard let lightEstimate = frame.lightEstimate else { return }
       guard cansAdded else { return } //1
-      ambientLightNode?.light?.intensity = lightEstimate.ambientIntensity * 0.4 //2
+      ambientLightNode?.light?.intensity = lightEstimate.ambientIntensity * 0.5
       directionalLightNode?.light?.intensity = lightEstimate.ambientIntensity
     }
     
     // Get camera position and direction
-    
     private func getCameraPoitionAndDirection() -> (SCNVector3, SCNVector3) {
         
         if let currentFrame = self.sceneView.session.currentFrame {
@@ -78,6 +96,34 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         }
         
         return (SCNVector3(-1, 0, 0), SCNVector3(0, -0.6, 0))
+    }
+    
+    func putCans(sender: UITapGestureRecognizer, level: Int) {
+        
+        var scene = SCNScene()
+        
+        if level == 0 {
+            scene = SCNScene(named: "art.scnassets/canPyramid.scn")!
+        } else if level == 1{
+            scene = SCNScene(named: "art.scnassets/canPyramid2.scn")!
+        } else {
+            scene = SCNScene(named: "art.scnassets/boxPyramid.scn")!
+        }
+        // Set the scene to the view
+        sceneView.scene = scene
+        
+        let touchLocation = sender.location(in: sceneView)
+        let hitTestResult = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
+        
+        if let result = hitTestResult.first {
+            container = sceneView.scene.rootNode.childNode(withName: "container", recursively: false)!
+            container.position = SCNVector3(x: result.worldTransform.columns.3.x, y: result.worldTransform.columns.3.y, z: result.worldTransform.columns.3.z)
+            
+            container.isHidden = false
+            ambientLightNode = container.childNode(withName: "ambientLight", recursively: false)
+            directionalLightNode = container.childNode(withName: "directionalLight", recursively: false)
+            cansAdded = true
+        }
     }
     
     // Create balls
@@ -117,8 +163,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         geometry.firstMaterial?.diffuse.contents = UIColor.red
         node.geometry = geometry
         
+        // Rotating the plane to be parallel to the horizon
         node.eulerAngles.x = -.pi / 2
-        
+        // Setting opacity to 0.5 to make it transparent
         node.opacity = 0.5
         
         return node
@@ -163,15 +210,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
 
     // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else {

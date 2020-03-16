@@ -29,15 +29,48 @@
                                     <constraint firstAttribute="width" constant="40" id="E27-gL-nK9"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9R-mH-83Y">
+                                <rect key="frame" x="0.0" y="83" width="414" height="33"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <state key="normal" title="Убрать банки">
+                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="restartButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="NCZ-BK-OAP"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y7x-eO-qsV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Уровень 1"/>
+                                    <segment title="Уровень 2"/>
+                                    <segment title="Уровень 3"/>
+                                </segments>
+                                <connections>
+                                    <action selector="levelChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="wEG-q1-8LJ"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="zd4-Sh-S4A" firstAttribute="centerY" secondItem="U0K-SW-4ec" secondAttribute="centerY" id="2GC-1R-o7w"/>
+                            <constraint firstItem="d9R-mH-83Y" firstAttribute="top" secondItem="Y7x-eO-qsV" secondAttribute="bottom" constant="8" id="4e8-Vo-l37"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="Y7x-eO-qsV" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="SR7-GS-QzM"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="Y7x-eO-qsV" secondAttribute="trailing" id="VWM-Wd-yse"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
                             <constraint firstItem="zd4-Sh-S4A" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="f0R-Ua-hDA"/>
+                            <constraint firstItem="d9R-mH-83Y" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="h8l-no-p97"/>
+                            <constraint firstItem="Y7x-eO-qsV" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="qQ9-h7-aue"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="d9R-mH-83Y" secondAttribute="trailing" id="ryL-xi-LLL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
