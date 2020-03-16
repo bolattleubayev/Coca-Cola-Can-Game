@@ -10,7 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     // MARK: - Variables
     
@@ -60,9 +60,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
-        
-        // Adding contact delegate
-        self.sceneView.scene.physicsWorld.contactDelegate = self
         
         if !cansAdded {
             putCans(sender: sender, level: level)
@@ -261,23 +258,5 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
     }
     
-    // MARK: - Collision handling
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        
-        if contact.nodeA.physicsBody?.categoryBitMask == 1
-            || contact.nodeB.physicsBody?.categoryBitMask == 1 {
-            
-            // Dispatching to main queue asynchronously
-            DispatchQueue.main.async {
-                contact.nodeA.removeFromParentNode()
-                contact.nodeB.removeFromParentNode()
-            }
-            
-            // Crash animation
-            let  crash = SCNParticleSystem(named: "collisionExplosion", inDirectory: nil)
-            contact.nodeB.addParticleSystem(crash!)
-        }
-    }
     
 }
