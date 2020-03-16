@@ -22,12 +22,21 @@
                                     <outletCollection property="gestureRecognizers" destination="N1b-HB-o97" appends="YES" id="CkL-5b-Kws"/>
                                 </connections>
                             </arscnView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aiming" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-Sh-S4A">
+                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DTE-6p-cL4"/>
+                                    <constraint firstAttribute="width" constant="40" id="E27-gL-nK9"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="zd4-Sh-S4A" firstAttribute="centerY" secondItem="U0K-SW-4ec" secondAttribute="centerY" id="2GC-1R-o7w"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
+                            <constraint firstItem="zd4-Sh-S4A" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="f0R-Ua-hDA"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
@@ -46,4 +55,7 @@
             <point key="canvasLocation" x="132" y="104"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="aiming" width="308" height="308"/>
+    </resources>
 </document>

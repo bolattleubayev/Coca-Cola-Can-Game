@@ -40,39 +40,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             let hitTestResult = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
             
             if let result = hitTestResult.first {
-                //addHoop(result: result)
-                //let baseNode = canPyramidBase(result: result)
-                
                 container = sceneView.scene.rootNode.childNode(withName: "container", recursively: false)!
                 container.position = SCNVector3(x: result.worldTransform.columns.3.x, y: result.worldTransform.columns.3.y, z: result.worldTransform.columns.3.z)
                 
-                container.isHidden = false //3
+                container.isHidden = false
                 ambientLightNode = container.childNode(withName: "ambientLight", recursively: false)
                 directionalLightNode = container.childNode(withName: "directionalLight", recursively: false)
                 cansAdded = true
             }
         } else {
-            
-            guard let frame = sceneView.session.currentFrame else { return } //1
-            let camMatrix = SCNMatrix4(frame.camera.transform)
-            let direction = SCNVector3Make(-camMatrix.m31 * 5.0, -camMatrix.m32 * 10.0, -camMatrix.m33 * 5.0) //2
-            let position = SCNVector3Make(camMatrix.m41, camMatrix.m42, camMatrix.m43) //3
-            
-            let ball = SCNSphere(radius: 0.05) //1
-            ball.firstMaterial?.diffuse.contents = UIColor.green
-            ball.firstMaterial?.emission.contents = UIColor.green //2
-            let ballNode = SCNNode(geometry: ball)
-            ballNode.position = position //3
-            ballNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-            ballNode.physicsBody?.categoryBitMask = 3
-            ballNode.physicsBody?.contactTestBitMask = 1 //4
-            sceneView.scene.rootNode.addChildNode(ballNode)
-            ballNode.runAction(SCNAction.sequence([SCNAction.wait(duration: 10.0), SCNAction.removeFromParentNode()])) //5
-            ballNode.physicsBody?.applyForce(direction, asImpulse: true) //6
-            
-            
+            createBall()
         }
-        
     }
     
     // MARK: - Functions
@@ -84,45 +62,51 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
       directionalLightNode?.light?.intensity = lightEstimate.ambientIntensity
     }
     
-    // Adding tin can holder
-    func canPyramidBase(result: ARHitTestResult) -> SCNNode {
+    // Get camera position and direction
+    
+    private func getCameraPoitionAndDirection() -> (SCNVector3, SCNVector3) {
         
-        // Create base plane to stack cans
-        
-        let basePlaneNode = SCNNode()
-        
-        // Get the tap on horizontal plane position
-        let horizontalPlanePosition = result.worldTransform.columns.3
-        
-        let baseGeometry = SCNPlane(width: 1.0, height: 1.0)
-        baseGeometry.firstMaterial?.diffuse.contents = UIColor.gray
-        basePlaneNode.geometry = baseGeometry
-        
-        basePlaneNode.eulerAngles.x = -.pi / 2
-        
-        
-        basePlaneNode.position = SCNVector3(horizontalPlanePosition.x, horizontalPlanePosition.y, horizontalPlanePosition.z)
-        
-        // Adding physics with special options to acknowledge the custom shape
-        basePlaneNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        basePlaneNode.physicsBody?.isAffectedByGravity = false
-        
-        // Collision properties
-        basePlaneNode.physicsBody?.categoryBitMask = CollidingObjectType.catchingObject.rawValue
-        basePlaneNode.physicsBody?.contactTestBitMask = CollidingObjectType.thrownObject.rawValue
-        
-        basePlaneNode.name = "basePlane"
-        
-        for guidingPlane in planeGuidingNodes {
-            guidingPlane.removeFromParentNode()
+        if let currentFrame = self.sceneView.session.currentFrame {
+            
+            let matrixOfCurrentFrame = SCNMatrix4(currentFrame.camera.transform)
+            
+            let orientationOfCamera = SCNVector3(-1*matrixOfCurrentFrame.m31, -1*matrixOfCurrentFrame.m32, -1*matrixOfCurrentFrame.m33)
+            
+            let positionOfCamera = SCNVector3(matrixOfCurrentFrame.m41, matrixOfCurrentFrame.m42, matrixOfCurrentFrame.m43)
+            
+            return (orientationOfCamera, positionOfCamera)
         }
         
+        return (SCNVector3(-1, 0, 0), SCNVector3(0, -0.6, 0))
+    }
+    
+    // Create balls
+    func createBall() {
+        // Get position and orientation of the camera
+        let (direction, position) = getCameraPoitionAndDirection()
         
+        // Setting size and texture of the thrown sphere
+        let sphere = SCNSphere(radius: 0.07)
+        sphere.firstMaterial?.diffuse.contents = UIColor.red
+        sphere.firstMaterial?.emission.contents = UIColor.white
         
-        // Add the node to the scene
-        sceneView.scene.rootNode.addChildNode(basePlaneNode)
+        // Setting sphere's position
+        let sphereNode = SCNNode(geometry: sphere)
+        sphereNode.position = position
         
-        return basePlaneNode
+        // Applying physical body values
+        sphereNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        sphereNode.physicsBody?.categoryBitMask = 3
+        sphereNode.physicsBody?.contactTestBitMask = 1
+        
+        // The sphere will disappear after 9 seconds from the scene
+        sphereNode.runAction(SCNAction.sequence([SCNAction.wait(duration: 9.0), SCNAction.removeFromParentNode()]))
+        
+        // Applying force
+        let force = SCNVector3(9*direction.x, 9*direction.y, 9*direction.z)
+        sphereNode.physicsBody?.applyForce(force, asImpulse: true)
+        
+        sceneView.scene.rootNode.addChildNode(sphereNode)
     }
     
     // Create horizontal areas
@@ -130,7 +114,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let node = SCNNode()
         
         let geometry = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        geometry.firstMaterial?.diffuse.contents = UIColor.green
+        geometry.firstMaterial?.diffuse.contents = UIColor.red
         node.geometry = geometry
         
         node.eulerAngles.x = -.pi / 2
@@ -138,77 +122,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         node.opacity = 0.5
         
         return node
-    }
-    
-    private func crateCanForPyramid(pyramidBaseNode: SCNNode, canNumber: Int) {
-        
-        // Adding can Pyramid
-        
-        let canScene = SCNScene(named: "art.scnassets/canForPyramid.scn")
-        
-        guard let canForPyramidNode = canScene?.rootNode.childNode(withName: "Can", recursively: false) else {
-            return
-        }
-        
-        // Put cans
-        
-        
-        let basePosition = pyramidBaseNode.position
-        
-        if canNumber == 0 {
-            canForPyramidNode.position = SCNVector3(basePosition.x, basePosition.y + canForPyramidNode.boundingBox.max.y * Float(1), basePosition.z - 0.15 - canForPyramidNode.boundingBox.max.z)
-        } else if canNumber == 1 {
-            canForPyramidNode.position = SCNVector3(basePosition.x, basePosition.y + canForPyramidNode.boundingBox.max.y * Float(1), basePosition.z)
-        } else if canNumber == 2 {
-            canForPyramidNode.position = SCNVector3(basePosition.x, basePosition.y + canForPyramidNode.boundingBox.max.y * Float(1), basePosition.z + 0.15 + canForPyramidNode.boundingBox.max.z)
-        } else if canNumber == 3 {
-            canForPyramidNode.position = SCNVector3(basePosition.x, basePosition.y + canForPyramidNode.boundingBox.max.y * Float(2), basePosition.z - 0.15 - canForPyramidNode.boundingBox.max.z / 2)
-        } else if canNumber == 4 {
-            canForPyramidNode.position = SCNVector3(basePosition.x, basePosition.y + canForPyramidNode.boundingBox.max.y * Float(2), basePosition.z + 0.15 + canForPyramidNode.boundingBox.max.z / 2)
-        }
-        
-        // Adding physics, collision margin setes the interaction distance
-        canForPyramidNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        canForPyramidNode.physicsBody?.isAffectedByGravity = true
-        
-        // Collision properties
-        canForPyramidNode.physicsBody?.categoryBitMask = CollidingObjectType.thrownObject.rawValue
-        canForPyramidNode.physicsBody?.collisionBitMask = CollidingObjectType.catchingObject.rawValue
-        
-        canForPyramidNode.name = "canForPyramid"
-        
-        
-        
-        
-        
-        sceneView.scene.rootNode.addChildNode(canForPyramidNode)
-        
-    }
-    
-    func createTinCan() {
-        let canScene = SCNScene(named: "art.scnassets/tinCan.scn")
-        
-        guard let canNode = canScene?.rootNode.childNode(withName: "Can", recursively: false) else {
-            return
-        }
-        
-        guard let currentFrame = sceneView.session.currentFrame else {
-            return
-        }
-        
-        // Take position of the camera and use it for ball location
-        let cameraTransform = SCNMatrix4(currentFrame.camera.transform)
-        canNode.transform = cameraTransform
-        
-        // Adding physics, collision margin setes the interaction distance
-        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: canNode, options: [SCNPhysicsShape.Option.collisionMargin: 0.01]))
-        canNode.physicsBody = physicsBody
-        
-        let power = Float(10.0)
-        let force = SCNVector3(-cameraTransform.m32 * power, -cameraTransform.m32 * power, -cameraTransform.m33 * power)
-        
-        canNode.physicsBody?.applyForce(force, asImpulse: true)
-        sceneView.scene.rootNode.addChildNode(canNode)
     }
     
     // MARK: - Lifecycle
