@@ -64,6 +64,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
         
+        // Adding contact delegate
+        self.sceneView.scene.physicsWorld.contactDelegate = self
+        
         if !cansAdded {
             putCans(sender: sender, level: level)
         } else {
@@ -102,6 +105,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         var scene = SCNScene()
         
+        // Select the level
         if level == 0 {
             scene = SCNScene(named: "art.scnassets/canPyramid.scn")!
         } else if level == 1{
@@ -109,13 +113,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         } else {
             scene = SCNScene(named: "art.scnassets/boxPyramid.scn")!
         }
+        
         // Set the scene to the view
         sceneView.scene = scene
         
+        // Manage touches
         let touchLocation = sender.location(in: sceneView)
         let hitTestResult = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
         
         if let result = hitTestResult.first {
+            
+            // Putting the pyramid
             container = sceneView.scene.rootNode.childNode(withName: "container", recursively: false)!
             container.position = SCNVector3(x: result.worldTransform.columns.3.x, y: result.worldTransform.columns.3.y, z: result.worldTransform.columns.3.z)
             
@@ -142,6 +150,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         // Applying physical body values
         sphereNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        
         sphereNode.physicsBody?.categoryBitMask = 3
         sphereNode.physicsBody?.contactTestBitMask = 1
         
@@ -178,9 +187,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         // Set the view's delegate
         sceneView.delegate = self
-        
-        // Adding contact delegate
-        self.sceneView.scene.physicsWorld.contactDelegate = self
         
         // Enable lighting
         sceneView.autoenablesDefaultLighting = true
@@ -262,13 +268,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         
-        if contact.nodeA.physicsBody?.categoryBitMask == CollidingObjectType.catchingObject.rawValue
-            || contact.nodeB.physicsBody?.categoryBitMask == CollidingObjectType.catchingObject.rawValue {
+        if contact.nodeA.physicsBody?.categoryBitMask == 1
+            || contact.nodeB.physicsBody?.categoryBitMask == 1 {
             
             // Dispatching to main queue asynchronously
             DispatchQueue.main.async {
-                //contact.nodeA.removeFromParentNode()
-                //contact.nodeB.removeFromParentNode()
+                contact.nodeA.removeFromParentNode()
+                contact.nodeB.removeFromParentNode()
                 
                 // Score counting logic
                 if ((contact.nodeA.name! == "canBasket" && contact.nodeB.name! == "can") || (contact.nodeA.name! == "can" && contact.nodeB.name! == "canBasket")) {
@@ -283,19 +289,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
                 
             }
             
-//            // Crash animation
-//            let  crash = SCNParticleSystem(named: "Crash", inDirectory: nil)
-//            contact.nodeB.addParticleSystem(crash!)
+            // Crash animation
+            let  crash = SCNParticleSystem(named: "collisionExplosion", inDirectory: nil)
+            contact.nodeB.addParticleSystem(crash!)
         }
     }
-    
-}
-
-struct CollidingObjectType: OptionSet {
-    
-    let rawValue: Int
-    
-    static let thrownObject  = CollidingObjectType(rawValue: 1 << 0)
-    static let catchingObject = CollidingObjectType(rawValue: 1 << 1)
     
 }
