@@ -15,7 +15,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     // MARK: - Variables
     
     private var cansAdded: Bool = false
-    private var score: Int = 0
     private var planeGuidingNodes = [SCNNode]()
     private var container: SCNNode!
     private var level: Int = 0
@@ -38,8 +37,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         // Add bins
         cansAdded = false
-        
-        score = 0
         
         //instructionLabel.text = "Счёт: \(self.score)"
         
@@ -275,18 +272,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             DispatchQueue.main.async {
                 contact.nodeA.removeFromParentNode()
                 contact.nodeB.removeFromParentNode()
-                
-                // Score counting logic
-                if ((contact.nodeA.name! == "canBasket" && contact.nodeB.name! == "can") || (contact.nodeA.name! == "can" && contact.nodeB.name! == "canBasket")) {
-                    self.score += 10
-                    //self.scoreLabel.text = "Счёт: \(self.score)"
-                } else if ((contact.nodeA.name! == "bottleBasket" && contact.nodeB.name! == "bottle") || (contact.nodeA.name! == "bottle" && contact.nodeB.name! == "bottleBasket")) {
-                    self.score += 10
-                    //self.scoreLabel.text = "Счёт: \(self.score)"
-                } else {
-                    //self.scoreLabel.text = "Счёт: \(self.score)"
-                }
-                
             }
             
             // Crash animation
