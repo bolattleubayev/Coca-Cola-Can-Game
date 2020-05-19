@@ -3,19 +3,47 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FB08489533CF0FFD2A1EC36 /* Pods_Coca_Cola_Can_Game.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 192D8945D415CC2C7F33327D /* Pods_Coca_Cola_Can_Game.framework */; };
+		FA0911BE2473096500545259 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911B72473096300545259 /* LoginViewController.swift */; };
+		FA0911BF2473096500545259 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911B82473096300545259 /* WelcomeViewController.swift */; };
+		FA0911C02473096500545259 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911B92473096300545259 /* ProfileViewController.swift */; };
+		FA0911C12473096500545259 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911BA2473096400545259 /* SignUpViewController.swift */; };
+		FA0911C22473096500545259 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911BB2473096400545259 /* ResetPasswordViewController.swift */; };
+		FA0911C32473096500545259 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911BC2473096400545259 /* CacheManager.swift */; };
+		FA0911C42473096500545259 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911BD2473096500545259 /* PostService.swift */; };
+		FA0911C82473247200545259 /* PhotoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911C72473247200545259 /* PhotoCard.swift */; };
+		FA0911CB247325DC00545259 /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911CA247325DC00545259 /* UIImage+Scale.swift */; };
+		FA0911CF247329F900545259 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0911CE247329F900545259 /* GoogleService-Info.plist */; };
+		FA53C14C2473008F003B1DC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53C14B2473008F003B1DC7 /* Constants.swift */; };
 		FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC89C2124175957000EA7C4 /* AppDelegate.swift */; };
 		FAC89C2424175957000EA7C4 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2324175957000EA7C4 /* art.scnassets */; };
 		FAC89C2624175957000EA7C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC89C2524175957000EA7C4 /* ViewController.swift */; };
 		FAC89C2924175957000EA7C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2724175957000EA7C4 /* Main.storyboard */; };
 		FAC89C2B2417595B000EA7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2A2417595B000EA7C4 /* Assets.xcassets */; };
 		FAC89C2E2417595B000EA7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2C2417595B000EA7C4 /* LaunchScreen.storyboard */; };
+		FAF8EFBA2461F689006C452E /* ColaPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8EFB62461F689006C452E /* ColaPlace.swift */; };
+		FAF8EFBB2461F689006C452E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8EFB72461F689006C452E /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		192D8945D415CC2C7F33327D /* Pods_Coca_Cola_Can_Game.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Coca_Cola_Can_Game.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A49A0F74D20547B2E36A9D7B /* Pods-Coca Cola Can Game.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coca Cola Can Game.debug.xcconfig"; path = "Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game.debug.xcconfig"; sourceTree = "<group>"; };
+		B71D2D6787DAE7BA7D26DE28 /* Pods-Coca Cola Can Game.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coca Cola Can Game.release.xcconfig"; path = "Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game.release.xcconfig"; sourceTree = "<group>"; };
+		FA0911B72473096300545259 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA0911B82473096300545259 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		FA0911B92473096300545259 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FA0911BA2473096400545259 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FA0911BB2473096400545259 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		FA0911BC2473096400545259 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		FA0911BD2473096500545259 /* PostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		FA0911C72473247200545259 /* PhotoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCard.swift; sourceTree = "<group>"; };
+		FA0911CA247325DC00545259 /* UIImage+Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
+		FA0911CE247329F900545259 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA53C14B2473008F003B1DC7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coca-Cola Can Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC89C2124175957000EA7C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC89C2324175957000EA7C4 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -24,6 +52,8 @@
 		FAC89C2A2417595B000EA7C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAC89C2D2417595B000EA7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAC89C2F2417595B000EA7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAF8EFB62461F689006C452E /* ColaPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaPlace.swift; sourceTree = "<group>"; };
+		FAF8EFB72461F689006C452E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +61,78 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FB08489533CF0FFD2A1EC36 /* Pods_Coca_Cola_Can_Game.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BFFDB0E5DEEFB12CD23F2A88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				192D8945D415CC2C7F33327D /* Pods_Coca_Cola_Can_Game.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1DF200CD2FDD034F32BD1D4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A49A0F74D20547B2E36A9D7B /* Pods-Coca Cola Can Game.debug.xcconfig */,
+				B71D2D6787DAE7BA7D26DE28 /* Pods-Coca Cola Can Game.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA0911C62473097B00545259 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				FA0911BC2473096400545259 /* CacheManager.swift */,
+				FA0911B72473096300545259 /* LoginViewController.swift */,
+				FA0911BD2473096500545259 /* PostService.swift */,
+				FA0911B92473096300545259 /* ProfileViewController.swift */,
+				FA0911BB2473096400545259 /* ResetPasswordViewController.swift */,
+				FA0911BA2473096400545259 /* SignUpViewController.swift */,
+				FA0911B82473096300545259 /* WelcomeViewController.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		FA0911C92473247900545259 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAF8EFB62461F689006C452E /* ColaPlace.swift */,
+				FA0911C72473247200545259 /* PhotoCard.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA0911CC2473261100545259 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FA0911CA247325DC00545259 /* UIImage+Scale.swift */,
+				FA53C14B2473008F003B1DC7 /* Constants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FA0911CD2473262700545259 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAC89C2524175957000EA7C4 /* ViewController.swift */,
+				FAF8EFB72461F689006C452E /* MapViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		FAC89C1524175957000EA7C4 = {
 			isa = PBXGroup;
 			children = (
 				FAC89C2024175957000EA7C4 /* Coca Cola Can Game */,
 				FAC89C1F24175957000EA7C4 /* Products */,
+				F1DF200CD2FDD034F32BD1D4 /* Pods */,
+				BFFDB0E5DEEFB12CD23F2A88 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,11 +149,15 @@
 			children = (
 				FAC89C2124175957000EA7C4 /* AppDelegate.swift */,
 				FAC89C2324175957000EA7C4 /* art.scnassets */,
-				FAC89C2524175957000EA7C4 /* ViewController.swift */,
 				FAC89C2724175957000EA7C4 /* Main.storyboard */,
 				FAC89C2A2417595B000EA7C4 /* Assets.xcassets */,
 				FAC89C2C2417595B000EA7C4 /* LaunchScreen.storyboard */,
 				FAC89C2F2417595B000EA7C4 /* Info.plist */,
+				FA0911CE247329F900545259 /* GoogleService-Info.plist */,
+				FA0911CD2473262700545259 /* Controllers */,
+				FA0911CC2473261100545259 /* Utils */,
+				FA0911C62473097B00545259 /* Firebase */,
+				FA0911C92473247900545259 /* Model */,
 			);
 			path = "Coca Cola Can Game";
 			sourceTree = "<group>";
@@ -74,9 +169,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAC89C322417595B000EA7C4 /* Build configuration list for PBXNativeTarget "Coca Cola Can Game" */;
 			buildPhases = (
+				4B3DBC6412508268BA689FB8 /* [CP] Check Pods Manifest.lock */,
 				FAC89C1A24175957000EA7C4 /* Sources */,
 				FAC89C1B24175957000EA7C4 /* Frameworks */,
 				FAC89C1C24175957000EA7C4 /* Resources */,
+				BFB20C02FAA432AC2FDF8602 /* [CP] Embed Pods Frameworks */,
+				16C3032B7C3D63F0BFBC3BF5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,6 +225,7 @@
 			files = (
 				FAC89C2424175957000EA7C4 /* art.scnassets in Resources */,
 				FAC89C2E2417595B000EA7C4 /* LaunchScreen.storyboard in Resources */,
+				FA0911CF247329F900545259 /* GoogleService-Info.plist in Resources */,
 				FAC89C2B2417595B000EA7C4 /* Assets.xcassets in Resources */,
 				FAC89C2924175957000EA7C4 /* Main.storyboard in Resources */,
 			);
@@ -134,13 +233,84 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		16C3032B7C3D63F0BFBC3BF5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B3DBC6412508268BA689FB8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Coca Cola Can Game-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFB20C02FAA432AC2FDF8602 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coca Cola Can Game/Pods-Coca Cola Can Game-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FAC89C1A24175957000EA7C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0911BE2473096500545259 /* LoginViewController.swift in Sources */,
+				FA53C14C2473008F003B1DC7 /* Constants.swift in Sources */,
+				FAF8EFBA2461F689006C452E /* ColaPlace.swift in Sources */,
+				FAF8EFBB2461F689006C452E /* MapViewController.swift in Sources */,
+				FA0911CB247325DC00545259 /* UIImage+Scale.swift in Sources */,
 				FAC89C2624175957000EA7C4 /* ViewController.swift in Sources */,
 				FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */,
+				FA0911C32473096500545259 /* CacheManager.swift in Sources */,
+				FA0911C42473096500545259 /* PostService.swift in Sources */,
+				FA0911C82473247200545259 /* PhotoCard.swift in Sources */,
+				FA0911C12473096500545259 /* SignUpViewController.swift in Sources */,
+				FA0911C22473096500545259 /* ResetPasswordViewController.swift in Sources */,
+				FA0911C02473096500545259 /* ProfileViewController.swift in Sources */,
+				FA0911BF2473096500545259 /* WelcomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +452,7 @@
 		};
 		FAC89C332417595B000EA7C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A49A0F74D20547B2E36A9D7B /* Pods-Coca Cola Can Game.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +471,7 @@
 		};
 		FAC89C342417595B000EA7C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B71D2D6787DAE7BA7D26DE28 /* Pods-Coca Cola Can Game.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
