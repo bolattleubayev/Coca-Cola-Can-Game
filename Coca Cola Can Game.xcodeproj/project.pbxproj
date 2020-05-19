@@ -18,6 +18,8 @@
 		FA0911C82473247200545259 /* PhotoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911C72473247200545259 /* PhotoCard.swift */; };
 		FA0911CB247325DC00545259 /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911CA247325DC00545259 /* UIImage+Scale.swift */; };
 		FA0911CF247329F900545259 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0911CE247329F900545259 /* GoogleService-Info.plist */; };
+		FA0911D12474310300545259 /* SendPhotoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D02474310300545259 /* SendPhotoTableViewController.swift */; };
+		FA0911D42474350D00545259 /* UserPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D32474350D00545259 /* UserPhotoCollectionViewCell.swift */; };
 		FA53C14C2473008F003B1DC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53C14B2473008F003B1DC7 /* Constants.swift */; };
 		FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC89C2124175957000EA7C4 /* AppDelegate.swift */; };
 		FAC89C2424175957000EA7C4 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2324175957000EA7C4 /* art.scnassets */; };
@@ -43,6 +45,8 @@
 		FA0911C72473247200545259 /* PhotoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCard.swift; sourceTree = "<group>"; };
 		FA0911CA247325DC00545259 /* UIImage+Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
 		FA0911CE247329F900545259 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA0911D02474310300545259 /* SendPhotoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPhotoTableViewController.swift; sourceTree = "<group>"; };
+		FA0911D32474350D00545259 /* UserPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA53C14B2473008F003B1DC7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coca-Cola Can Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC89C2124175957000EA7C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,8 +126,17 @@
 			children = (
 				FAC89C2524175957000EA7C4 /* ViewController.swift */,
 				FAF8EFB72461F689006C452E /* MapViewController.swift */,
+				FA0911D02474310300545259 /* SendPhotoTableViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FA0911D2247434DF00545259 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA0911D32474350D00545259 /* UserPhotoCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		FAC89C1524175957000EA7C4 = {
@@ -155,6 +168,7 @@
 				FAC89C2F2417595B000EA7C4 /* Info.plist */,
 				FA0911CE247329F900545259 /* GoogleService-Info.plist */,
 				FA0911CD2473262700545259 /* Controllers */,
+				FA0911D2247434DF00545259 /* Cells */,
 				FA0911CC2473261100545259 /* Utils */,
 				FA0911C62473097B00545259 /* Firebase */,
 				FA0911C92473247900545259 /* Model */,
@@ -301,10 +315,12 @@
 				FA53C14C2473008F003B1DC7 /* Constants.swift in Sources */,
 				FAF8EFBA2461F689006C452E /* ColaPlace.swift in Sources */,
 				FAF8EFBB2461F689006C452E /* MapViewController.swift in Sources */,
+				FA0911D42474350D00545259 /* UserPhotoCollectionViewCell.swift in Sources */,
 				FA0911CB247325DC00545259 /* UIImage+Scale.swift in Sources */,
 				FAC89C2624175957000EA7C4 /* ViewController.swift in Sources */,
 				FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */,
 				FA0911C32473096500545259 /* CacheManager.swift in Sources */,
+				FA0911D12474310300545259 /* SendPhotoTableViewController.swift in Sources */,
 				FA0911C42473096500545259 /* PostService.swift in Sources */,
 				FA0911C82473247200545259 /* PhotoCard.swift in Sources */,
 				FA0911C12473096500545259 /* SignUpViewController.swift in Sources */,

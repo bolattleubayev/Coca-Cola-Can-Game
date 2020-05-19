@@ -14,11 +14,43 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var profilePictureImageView: UIImageView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
+        guard segue.identifier == "saveUnwind" else { return }
+        
+        print("Save unwind")
+//        let sourceViewController = segue.source as! CardViewController
+//        
+//        if let card = sourceViewController.card {
+//            // Edit case
+//            if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first {
+//                
+//                if selectedIndexPath.section == 0 {
+//                    // Add case
+//                    let newIndexPath = IndexPath(row: cards.count, section: 1)
+//                    cards.append(card)
+//                    
+//                    print(newIndexPath)
+//                    print(cards)
+//                    collectionView.insertItems(at: [newIndexPath])
+//                } else {
+//                    cards[selectedIndexPath.row] = card
+//                    collectionView.reloadItems(at: [selectedIndexPath])
+//                }
+//            }
+//        }
+//        Card.saveCards(cards)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Constants.modifyNavigationController(navigationController: navigationController)
-        self.title = "Profile"
+        self.title = "Аккаунт"
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         if let currentUser = Auth.auth().currentUser {
             nameLabel.text = currentUser.displayName
@@ -90,4 +122,49 @@ class ProfileViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - CollectionView
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0: return 1
+        case 1: return 0//cards.count
+        default: return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.section == 0 {
+            //Cell with Add button
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdditionCell", for: indexPath)
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UserPhotoCollectionViewCell else {
+                fatalError("Could not dequeue a cell")
+            }
+            
+//            let card = cards[indexPath.row]
+//            cell.headreTitleTextField.text = card.title
+//            cell.bodyTextView.text = card.body
+//
+//            if selectedCells.contains(indexPath) {
+//                cell.layer.borderColor = UIColor.red.cgColor
+//                cell.layer.borderWidth = 3.0
+//            } else {
+//                cell.layer.borderColor = UIColor.clear.cgColor
+//                cell.layer.borderWidth = 0.0
+//            }
+            
+            return cell
+        }
+    }
+    
+    
 }
