@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import Firebase
 
 class SendPhotoTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //MARK: - Variables
+    
+    // Data and Firebase
+    private var timestamp: Int = Int(Date().timeIntervalSince1970 * 1000)
+    private var imageFileURL: String = ""
+    
+    // View
     var isPickerHidden = true
     var imagePicker = UIImagePickerController()
     
@@ -40,6 +47,99 @@ class SendPhotoTableViewController: UITableViewController, UIImagePickerControll
         barCodeTextField.resignFirstResponder()
     }
     
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        
+        // Data upload
+        let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems").childByAutoId()
+        
+//        let post: [String : Any] = ["imageFileURL": "",
+//                                    "user": "Assylkhan Tleubayev",
+//                                    "timestamp": timestamp,
+//                                    "shopName": Constants.colaPlaces[shopPickerView.selectedRow(inComponent: 0)].name,
+//                                    "barCode": Int(barCodeTextField.text ?? "0") ?? 0,
+//                                    "longitude": 51.0,
+//                                    "latitude": 42.0,
+//                                    "comments": notesTextView.text ?? "https://google.com"]
+
+        //POST_DB_REF.setValue(post)
+        
+        // Image upload
+        
+        //let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems")
+        let PHOTO_STORAGE_REF: StorageReference = Storage.storage().reference().child("photos")
+        
+        // Generate a unique ID for the post and prepare the post database reference
+        //let postDatabaseRef = POST_DB_REF.child(item.postID)
+        
+        // Use the unique key as the image name and prepare the storage reference
+        guard let imageKey = POST_DB_REF.key else {
+            return
+        }
+        
+        let imageStorageRef = PHOTO_STORAGE_REF.child("\(imageKey).jpg")
+        
+        // Resize the image
+        let scaledImage = photoImageView.image!.scale(newWidth: 640.0)
+        
+        guard let imageData = scaledImage.jpegData(compressionQuality: 0.9) else {
+            return
+        }
+        
+        // Create the file metadata
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        // Prepare the upload task
+        let uploadTask = imageStorageRef.putData(imageData, metadata: metadata)
+        
+        // Observe the upload status
+        uploadTask.observe(.success) { (snapshot) in
+            
+//            guard let displayName = Auth.auth().currentUser?.displayName else {
+//                return
+//            }
+            
+            snapshot.reference.downloadURL(completion: { (url, error) in
+                guard let url = url else {
+                    return
+                }
+                
+                // Add a reference in the database
+                
+                let imageFileURL = url.absoluteString
+                let timestamp = Int(Date().timeIntervalSince1970 * 1000)
+                
+                
+                let post: [String : Any] = ["imageFileURL": imageFileURL,
+                                            "user": "Assylkhan Tleubayev",
+                                            "timestamp": timestamp,
+                                            "shopName": Constants.colaPlaces[self.shopPickerView.selectedRow(inComponent: 0)].name,
+                                            "barCode": Int(self.barCodeTextField.text ?? "0") ?? 0,
+                                            "longitude": 51.0,
+                                            "latitude": 42.0,
+                                            "comments": self.notesTextView.text ?? "https://google.com"]
+                
+                POST_DB_REF.setValue(post)
+            })
+        }
+        
+        uploadTask.observe(.progress) { (snapshot) in
+            
+            let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
+            
+            print("Uploading \(imageKey).jpg... \(percentComplete)% complete")
+            
+        }
+        
+        uploadTask.observe(.failure) { (snapshot) in
+            
+            if let error = snapshot.error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Functions
     
@@ -52,10 +152,14 @@ class SendPhotoTableViewController: UITableViewController, UIImagePickerControll
         shopNameLabel.text = "\(Constants.colaPlaces[shopPickerView.selectedRow(inComponent: 0)].name)"
     }
     
+    
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
         
         shopPickerView.delegate = self
         shopPickerView.dataSource = self

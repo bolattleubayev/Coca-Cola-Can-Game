@@ -330,7 +330,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="7rX-f9-Ive">
                             <connections>
-                                <segue destination="Hcu-ka-EiC" kind="unwind" identifier="saveUnwind" unwindAction="unwindToProfileWithSegue:" id="eBe-qo-oow"/>
+                                <action selector="saveButtonPressed:" destination="agW-7M-SxP" id="cZT-sj-oy7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
