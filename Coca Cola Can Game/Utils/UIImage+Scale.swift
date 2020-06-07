@@ -3,7 +3,7 @@
 //  DigBig
 //
 //  Created by macbook on 5/3/20.
-//  Copyright © 2020 bolattleubayev. All rights reserved.
+//  Copyright © 2020 assylkhantleubayev. All rights reserved.
 //
 
 import Foundation

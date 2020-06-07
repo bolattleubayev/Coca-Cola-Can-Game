@@ -3,7 +3,7 @@
 //  Coca Cola Can Game
 //
 //  Created by macbook on 3/10/20.
-//  Copyright © 2020 bolattleubayev. All rights reserved.
+//  Copyright © 2020 assylkhantleubayev. All rights reserved.
 //
 
 import UIKit

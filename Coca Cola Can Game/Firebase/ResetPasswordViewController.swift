@@ -12,7 +12,7 @@ class ResetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Forgot Password"
+        self.title = "Изменить пароль"
         emailTextField.becomeFirstResponder()
     }
 

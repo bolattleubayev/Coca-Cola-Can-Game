@@ -20,31 +20,45 @@ class ProfileViewController: UIViewController {
         guard segue.identifier == "saveUnwind" else { return }
         
         print("Save unwind")
-//        let sourceViewController = segue.source as! CardViewController
-//        
-//        if let card = sourceViewController.card {
-//            // Edit case
-//            if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first {
-//                
-//                if selectedIndexPath.section == 0 {
-//                    // Add case
-//                    let newIndexPath = IndexPath(row: cards.count, section: 1)
-//                    cards.append(card)
-//                    
-//                    print(newIndexPath)
-//                    print(cards)
-//                    collectionView.insertItems(at: [newIndexPath])
-//                } else {
-//                    cards[selectedIndexPath.row] = card
-//                    collectionView.reloadItems(at: [selectedIndexPath])
-//                }
-//            }
-//        }
-//        Card.saveCards(cards)
+        
+    }
+    
+    // MARK:- Firebase
+        
+    var postfeed: [PhotoCard] = []
+    fileprivate var isLoadingPost = false // used for infinite scroll
+    
+    @objc fileprivate func loadRecentPosts() {
+        isLoadingPost = true
+        PostService.shared.getRecentPosts(start: postfeed.first?.timestamp, limit: 10) { (newPosts) in
+            
+            self.postfeed = []
+            if newPosts.count > 0 {
+                // Add the array to the beginning of the posts arrays
+                self.postfeed.insert(contentsOf: newPosts, at: 0)
+                self.subtitleLabel.text = "Отправлено фото: \(self.postfeed.count)"
+            }
+            
+            self.isLoadingPost = false
+            
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postfeed = []
+        loadRecentPosts()
+        collectionView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        postfeed = []
+        loadRecentPosts()
         
         Constants.modifyNavigationController(navigationController: navigationController)
         self.title = "Аккаунт"
@@ -134,7 +148,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 0//cards.count
+        case 1: return postfeed.count
         default: return 0
         }
     }
@@ -150,17 +164,23 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 fatalError("Could not dequeue a cell")
             }
             
-//            let card = cards[indexPath.row]
-//            cell.headreTitleTextField.text = card.title
-//            cell.bodyTextView.text = card.body
-//
-//            if selectedCells.contains(indexPath) {
-//                cell.layer.borderColor = UIColor.red.cgColor
-//                cell.layer.borderWidth = 3.0
-//            } else {
-//                cell.layer.borderColor = UIColor.clear.cgColor
-//                cell.layer.borderWidth = 0.0
-//            }
+            cell.shopNameLabel.text = postfeed[indexPath.row].shopName
+            cell.dateLabel.text = "\(Date(timeIntervalSince1970: TimeInterval(postfeed[indexPath.row].timestamp/1000)))"
+            
+            if postfeed[indexPath.row].imageFileURL != "" {
+                let url = URL(string: postfeed[indexPath.row].imageFileURL)
+                
+                if let url = url {
+                    DispatchQueue.global().async {
+                        let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        DispatchQueue.main.async {
+                            cell.uploadedPhotoView.image = UIImage(data: data!)
+                        }
+                    }
+                }
+            } else {
+                cell.uploadedPhotoView.image = UIImage(named: "bottle")
+            }
             
             return cell
         }

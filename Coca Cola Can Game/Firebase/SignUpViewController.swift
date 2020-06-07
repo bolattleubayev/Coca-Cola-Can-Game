@@ -15,7 +15,7 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Sign Up"
+        self.title = "Войти"
         nameTextField.becomeFirstResponder()
     }
 

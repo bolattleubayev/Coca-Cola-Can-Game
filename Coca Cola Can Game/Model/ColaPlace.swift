@@ -1,6 +1,6 @@
 //
 //  File.swift
-
+//  Copyright © 2020 assylkhantleubayev. All rights reserved.
 
 import Foundation
 

@@ -18,35 +18,73 @@ final class PostService {
     
     let BASE_DB_REF: DatabaseReference = Database.database().reference()
     
-    let POST_DB_REF: DatabaseReference = Database.database().reference().child("PhotoCards")
+    let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems")
     
     // MARK: - Firebase Storage Reference
     
     let PHOTO_STORAGE_REF: StorageReference = Storage.storage().reference().child("photos")
     
-    func getOldPosts(start timestamp: Int, limit: UInt, completionHandler: @escaping ( [PhotoCard]) -> Void) {
+//    func getOldPosts(start timestamp: Int, limit: UInt, completionHandler: @escaping ( [PhotoCard]) -> Void) {
+//
+//        let postOrderedQuery = POST_DB_REF.queryOrdered(byChild: PhotoCard.PhotoCardInfoKey.timestamp)
+//        let postLimitedQuery = postOrderedQuery.queryEnding(atValue: timestamp - 1, childKey: PhotoCard.PhotoCardInfoKey.timestamp).queryLimited(toLast: limit)
+//
+//        postLimitedQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//            var newPosts: [PhotoCard] = []
+//            for item in snapshot.children.allObjects as! [DataSnapshot] {
+//                print("Post key: \(item.key)")
+//                let postInfo = item.value as? [String: Any] ?? [:]
+//                if let post = PhotoCard(postId: item.key, postInfo: postInfo) {
+//                    newPosts.append(post)
+//                }
+//            }
+//
+//            // Order in descending order (i.e. the latest post becomes the first post)
+//            newPosts.sort(by: { $0.timestamp > $1.timestamp })
+//
+//            completionHandler(newPosts)
+//        })
+//    }
+    
+    
+    func getRecentDigPosts(start timestamp: Int? = nil, limit: UInt, completionHandler: @escaping ([DigItem]) -> Void) {
         
-        let postOrderedQuery = POST_DB_REF.queryOrdered(byChild: PhotoCard.PhotoCardInfoKey.timestamp)
-        let postLimitedQuery = postOrderedQuery.queryEnding(atValue: timestamp - 1, childKey: PhotoCard.PhotoCardInfoKey.timestamp).queryLimited(toLast: limit)
+        var postQuery = Database.database().reference().child("DigItems").queryOrdered(byChild: DigItem.DigItemInfoKey.timestamp)
         
-        postLimitedQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+        if let latestPostTimestamp = timestamp, latestPostTimestamp > 0 {
             
-            var newPosts: [PhotoCard] = []
+            // If the timestamp is specified, we will get the posts with timestamp newer than the given value
+            
+            postQuery = postQuery.queryStarting(atValue: latestPostTimestamp + 1, childKey: DigItem.DigItemInfoKey.timestamp).queryLimited(toLast: limit)
+        } else {
+            // Otherwise, we will just get the most recent posts
+            postQuery = postQuery.queryLimited(toLast: limit)
+        }
+        
+        // Call Firebase API to retrieve the latest records
+        
+        postQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            var newPosts: [DigItem] = []
+            
             for item in snapshot.children.allObjects as! [DataSnapshot] {
-                print("Post key: \(item.key)")
                 let postInfo = item.value as? [String: Any] ?? [:]
-                if let post = PhotoCard(postId: item.key, postInfo: postInfo) {
+                
+                if let post = DigItem(postId: item.key, postInfo: postInfo) {
                     newPosts.append(post)
                 }
             }
             
-            // Order in descending order (i.e. the latest post becomes the first post)
-            newPosts.sort(by: { $0.timestamp > $1.timestamp })
+
+            if newPosts.count > 0 {
+                // Order in descending order (i.e. the latest post becomes the first posts)
+                newPosts.sort(by: { $0.timestamp > $1.timestamp })
+            }
             
             completionHandler(newPosts)
         })
     }
-    
     
     func getRecentPosts(start timestamp: Int? = nil, limit: UInt, completionHandler: @escaping ([PhotoCard]) -> Void) {
         

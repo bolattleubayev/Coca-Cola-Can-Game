@@ -20,6 +20,10 @@
 		FA0911CF247329F900545259 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0911CE247329F900545259 /* GoogleService-Info.plist */; };
 		FA0911D12474310300545259 /* SendPhotoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D02474310300545259 /* SendPhotoTableViewController.swift */; };
 		FA0911D42474350D00545259 /* UserPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D32474350D00545259 /* UserPhotoCollectionViewCell.swift */; };
+		FA0911D624748D9300545259 /* BarCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D524748D9300545259 /* BarCodeScannerViewController.swift */; };
+		FA0911D82475CD2E00545259 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D72475CD2E00545259 /* QuestionsViewController.swift */; };
+		FA0911DA2475CE4D00545259 /* DigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911D92475CE4D00545259 /* DigItem.swift */; };
+		FA0911DC2475D38800545259 /* QuestionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0911DB2475D38800545259 /* QuestionMenuTableViewController.swift */; };
 		FA53C14C2473008F003B1DC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53C14B2473008F003B1DC7 /* Constants.swift */; };
 		FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC89C2124175957000EA7C4 /* AppDelegate.swift */; };
 		FAC89C2424175957000EA7C4 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC89C2324175957000EA7C4 /* art.scnassets */; };
@@ -47,6 +51,10 @@
 		FA0911CE247329F900545259 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA0911D02474310300545259 /* SendPhotoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPhotoTableViewController.swift; sourceTree = "<group>"; };
 		FA0911D32474350D00545259 /* UserPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA0911D524748D9300545259 /* BarCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerViewController.swift; sourceTree = "<group>"; };
+		FA0911D72475CD2E00545259 /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
+		FA0911D92475CE4D00545259 /* DigItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigItem.swift; sourceTree = "<group>"; };
+		FA0911DB2475D38800545259 /* QuestionMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMenuTableViewController.swift; sourceTree = "<group>"; };
 		FA53C14B2473008F003B1DC7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAC89C1E24175957000EA7C4 /* Coca-Cola Can Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coca-Cola Can Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC89C2124175957000EA7C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +114,7 @@
 		FA0911C92473247900545259 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA0911D92475CE4D00545259 /* DigItem.swift */,
 				FAF8EFB62461F689006C452E /* ColaPlace.swift */,
 				FA0911C72473247200545259 /* PhotoCard.swift */,
 			);
@@ -127,6 +136,9 @@
 				FAC89C2524175957000EA7C4 /* ViewController.swift */,
 				FAF8EFB72461F689006C452E /* MapViewController.swift */,
 				FA0911D02474310300545259 /* SendPhotoTableViewController.swift */,
+				FA0911D524748D9300545259 /* BarCodeScannerViewController.swift */,
+				FA0911D72475CD2E00545259 /* QuestionsViewController.swift */,
+				FA0911DB2475D38800545259 /* QuestionMenuTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -320,10 +332,14 @@
 				FAC89C2624175957000EA7C4 /* ViewController.swift in Sources */,
 				FAC89C2224175957000EA7C4 /* AppDelegate.swift in Sources */,
 				FA0911C32473096500545259 /* CacheManager.swift in Sources */,
+				FA0911DA2475CE4D00545259 /* DigItem.swift in Sources */,
 				FA0911D12474310300545259 /* SendPhotoTableViewController.swift in Sources */,
 				FA0911C42473096500545259 /* PostService.swift in Sources */,
+				FA0911DC2475D38800545259 /* QuestionMenuTableViewController.swift in Sources */,
+				FA0911D624748D9300545259 /* BarCodeScannerViewController.swift in Sources */,
 				FA0911C82473247200545259 /* PhotoCard.swift in Sources */,
 				FA0911C12473096500545259 /* SignUpViewController.swift in Sources */,
+				FA0911D82475CD2E00545259 /* QuestionsViewController.swift in Sources */,
 				FA0911C22473096500545259 /* ResetPasswordViewController.swift in Sources */,
 				FA0911C02473096500545259 /* ProfileViewController.swift in Sources */,
 				FA0911BF2473096500545259 /* WelcomeViewController.swift in Sources */,

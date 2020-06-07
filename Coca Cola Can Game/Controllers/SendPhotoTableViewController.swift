@@ -3,15 +3,20 @@
 //  Coca Cola Can Game
 //
 //  Created by macbook on 5/19/20.
-//  Copyright © 2020 bolattleubayev. All rights reserved.
+//  Copyright © 2020 assylkhantleubayev. All rights reserved.
 //
 
 import UIKit
 import Firebase
+import MapKit
 
 class SendPhotoTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //MARK: - Variables
+    
+    // Location Management
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
     
     // Data and Firebase
     private var timestamp: Int = Int(Date().timeIntervalSince1970 * 1000)
@@ -34,9 +39,9 @@ class SendPhotoTableViewController: UITableViewController, UIImagePickerControll
     
     @IBAction func unwindToPhotoUpload(segue: UIStoryboardSegue) {
         guard segue.identifier == "saveScan" else { return }
-        //let sourceViewController = segue.source as! BarCodeScannerViewController
+        let sourceViewController = segue.source as! BarCodeScannerViewController
         
-        //barCodeTextField.text = String(sourceViewController.scannedNumber)
+        barCodeTextField.text = String(sourceViewController.scannedNumber)
     }
     
     @IBAction func barCodeEditingChanged(_ sender: UITextField) {
@@ -49,96 +54,98 @@ class SendPhotoTableViewController: UITableViewController, UIImagePickerControll
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         
-        // Data upload
-        let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems").childByAutoId()
+        var nearFlag = false
         
-//        let post: [String : Any] = ["imageFileURL": "",
-//                                    "user": "Assylkhan Tleubayev",
-//                                    "timestamp": timestamp,
-//                                    "shopName": Constants.colaPlaces[shopPickerView.selectedRow(inComponent: 0)].name,
-//                                    "barCode": Int(barCodeTextField.text ?? "0") ?? 0,
-//                                    "longitude": 51.0,
-//                                    "latitude": 42.0,
-//                                    "comments": notesTextView.text ?? "https://google.com"]
-
-        //POST_DB_REF.setValue(post)
-        
-        // Image upload
-        
-        //let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems")
-        let PHOTO_STORAGE_REF: StorageReference = Storage.storage().reference().child("photos")
-        
-        // Generate a unique ID for the post and prepare the post database reference
-        //let postDatabaseRef = POST_DB_REF.child(item.postID)
-        
-        // Use the unique key as the image name and prepare the storage reference
-        guard let imageKey = POST_DB_REF.key else {
-            return
-        }
-        
-        let imageStorageRef = PHOTO_STORAGE_REF.child("\(imageKey).jpg")
-        
-        // Resize the image
-        let scaledImage = photoImageView.image!.scale(newWidth: 640.0)
-        
-        guard let imageData = scaledImage.jpegData(compressionQuality: 0.9) else {
-            return
-        }
-        
-        // Create the file metadata
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpg"
-        
-        // Prepare the upload task
-        let uploadTask = imageStorageRef.putData(imageData, metadata: metadata)
-        
-        // Observe the upload status
-        uploadTask.observe(.success) { (snapshot) in
+        // Get the distance to the placemark
+        for colaPlace in Constants.colaPlaces {
+            let euclidianDistance = sqrt(pow(colaPlace.latitude - currentLocation.coordinate.latitude, 2) + pow((colaPlace.longitude - currentLocation.coordinate.longitude), 2))
             
-//            guard let displayName = Auth.auth().currentUser?.displayName else {
-//                return
-//            }
-            
-            snapshot.reference.downloadURL(completion: { (url, error) in
-                guard let url = url else {
-                    return
-                }
-                
-                // Add a reference in the database
-                
-                let imageFileURL = url.absoluteString
-                let timestamp = Int(Date().timeIntervalSince1970 * 1000)
-                
-                
-                let post: [String : Any] = ["imageFileURL": imageFileURL,
-                                            "user": "Assylkhan Tleubayev",
-                                            "timestamp": timestamp,
-                                            "shopName": Constants.colaPlaces[self.shopPickerView.selectedRow(inComponent: 0)].name,
-                                            "barCode": Int(self.barCodeTextField.text ?? "0") ?? 0,
-                                            "longitude": 51.0,
-                                            "latitude": 42.0,
-                                            "comments": self.notesTextView.text ?? "https://google.com"]
-                
-                POST_DB_REF.setValue(post)
-            })
-        }
-        
-        uploadTask.observe(.progress) { (snapshot) in
-            
-            let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
-            
-            print("Uploading \(imageKey).jpg... \(percentComplete)% complete")
-            
-        }
-        
-        uploadTask.observe(.failure) { (snapshot) in
-            
-            if let error = snapshot.error {
-                print(error.localizedDescription)
+            if euclidianDistance < 0.01 {
+                nearFlag = true
             }
+            
+            print("Distance to \(colaPlace.name) is \(euclidianDistance)")
         }
         
-        self.dismiss(animated: true, completion: nil)
+        if nearFlag {
+
+            // Data upload
+            let POST_DB_REF: DatabaseReference = Database.database().reference().child("CocaColaCanGameItems").childByAutoId()
+            
+            let PHOTO_STORAGE_REF: StorageReference = Storage.storage().reference().child("photos")
+            
+            // Generate a unique ID for the post and prepare the post database reference
+            //let postDatabaseRef = POST_DB_REF.child(item.postID)
+            
+            // Use the unique key as the image name and prepare the storage reference
+            guard let imageKey = POST_DB_REF.key else {
+                return
+            }
+            
+            let imageStorageRef = PHOTO_STORAGE_REF.child("\(imageKey).jpg")
+            
+            // Resize the image
+            let scaledImage = photoImageView.image!.scale(newWidth: 640.0)
+            
+            guard let imageData = scaledImage.jpegData(compressionQuality: 0.9) else {
+                return
+            }
+            
+            // Create the file metadata
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpg"
+            
+            // Prepare the upload task
+            let uploadTask = imageStorageRef.putData(imageData, metadata: metadata)
+            
+            // Observe the upload status
+            uploadTask.observe(.success) { (snapshot) in
+                
+                snapshot.reference.downloadURL(completion: { (url, error) in
+                    guard let url = url else {
+                        return
+                    }
+                    
+                    // Add a reference in the database
+                    
+                    let imageFileURL = url.absoluteString
+                    let timestamp = Int(Date().timeIntervalSince1970 * 1000)
+                    
+                    
+                    let post: [String : Any] = ["imageFileURL": imageFileURL,
+                                                "user": "Assylkhan Tleubayev",
+                                                "timestamp": timestamp,
+                                                "shopName": Constants.colaPlaces[self.shopPickerView.selectedRow(inComponent: 0)].name,
+                                                "barCode": Int(self.barCodeTextField.text ?? "0") ?? 0,
+                                                "longitude": self.currentLocation.coordinate.longitude,
+                                                "latitude": self.currentLocation.coordinate.latitude,
+                                                "comments": self.notesTextView.text ?? "https://google.com"]
+                    
+                    POST_DB_REF.setValue(post)
+                })
+            }
+            
+            uploadTask.observe(.progress) { (snapshot) in
+                
+                let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
+                
+                print("Uploading \(imageKey).jpg... \(percentComplete)% complete")
+                
+            }
+            
+            uploadTask.observe(.failure) { (snapshot) in
+                
+                if let error = snapshot.error {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Вы не находитесь возле брендированного магазина", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Functions
@@ -158,6 +165,12 @@ class SendPhotoTableViewController: UITableViewController, UIImagePickerControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+        if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
+            currentLocation = locationManager.location
+        }
         
         imagePicker.delegate = self
         

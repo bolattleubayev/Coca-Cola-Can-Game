@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.title = "Log In"
+        self.title = "Войти"
         emailTextField.becomeFirstResponder()
     }
     
