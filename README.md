@@ -1,4 +1,4 @@
-# CocaCola Prototype
+# Coca Cola Can Game
 
 
 ### About
